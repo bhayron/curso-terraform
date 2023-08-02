@@ -3,7 +3,6 @@
 .DS_Store
 example.tf
 terraform.tfplan
-terraform.tfstate
 bin/
 modules-dev/
 /pkg/
@@ -13,7 +12,6 @@ website/build
 website/node_modules
 .vagrant/
 *.backup
-./*.tfstate
 .terraform/
 *.log
 *.bak
@@ -27,7 +25,6 @@ website/node_modules
 website/vendor
 
 # Test exclusions
-!command/test-fixtures/**/*.tfstate
 !command/test-fixtures/**/.terraform/
 
 node_modules/
