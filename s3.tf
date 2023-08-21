@@ -2,14 +2,14 @@
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket#private-bucket-w-tags
 resource "aws_s3_bucket" "my-test-bucket" {
   bucket = "${random_pet.bucket.id}-bhayron"
+  tags   = local.common_tags
+}
 
-  tags = {
-    Name        = "My first Terraform bucket"
-    Environment = "Dev"
-    ManagedBy   = "Terraform"
-    Owner       = "Cleber Gasparoto"
-    CreatedAt   = "2023-08-02"
-  }
+resource "aws_s3_bucket_object" "this" {
+  bucket = aws_s3_bucket.my-test-bucket.bucket
+  key    = "config/${local.ip_filepath}"
+  source = local.ip_filepath
+  etag   = filemd5(local.ip_filepath)
 }
 
 # Configurar as regras de propriedade do bucket S3
