@@ -4,10 +4,11 @@ resource "aws_s3_bucket" "my-test-bucket" {
 }
 
 resource "aws_s3_object" "this" {
-  bucket = aws_s3_bucket.my-test-bucket.id
-  key    = "config/${local.ip_filepath}"
-  source = local.ip_filepath
-  etag   = filemd5(local.ip_filepath)
+  bucket       = aws_s3_bucket.my-test-bucket.id
+  key          = "config/${local.ip_filepath}"
+  source       = local.ip_filepath
+  etag         = filemd5(local.ip_filepath)
+  content_type = "application/json"
 }
 
 # Configurar as regras de propriedade do bucket S3
@@ -25,4 +26,12 @@ resource "aws_s3_bucket_acl" "s3-bucket-acl" {
 
   bucket = aws_s3_bucket.my-test-bucket.id
   acl    = "private"
+}
+
+resource "aws_s3_bucket" "manual" {
+  bucket = "import-bucket-bhayron"
+  tags = {
+    teste     = "teste"
+    importado = "21/08/2023"
+  }
 }
